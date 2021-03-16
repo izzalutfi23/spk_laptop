@@ -75,6 +75,12 @@ class Saw
 		return $stmt->fetch();
   }
 
+  public function alternatif_by_idkat($id){
+    $stmt = $this->db->prepare("SELECT*FROM alternatif_saw WHERE id_kategori='$id'");
+    $stmt->execute();
+		return $stmt;
+  }
+
   public function alternatif_update($nama_alternatif, $id){
     $query = $this->db->prepare('UPDATE alternatif_saw set nama_alternatif=? where id_alternatif=?');
     $query->bindParam(1, $nama_alternatif);

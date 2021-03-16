@@ -68,6 +68,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    <?php 
+                        $kategori = $saw->get_data_kategori();
+                        while ($data_kategori = $kategori->fetch(PDO::FETCH_ASSOC)){
+                    ?>
+                    <a href="alternatif.php?kat=<?=$data_kategori['id_kategori']?>">
+                        <button class="btn btn-danger btn-sm"><?=$data_kategori['nama_kategori']?></button>
+                    </a>
+                    <?php } ?>
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <div class="row">
@@ -96,7 +104,12 @@
                                     <tbody>
                                         <?php
                                         $no=1;
-                                        $alternatif = $saw->get_data_alternatif();
+                                        if(isset($_GET['kat'])){
+                                            $alternatif = $saw->alternatif_by_idkat($_GET['kat']);
+                                        }
+                                        else{
+                                            $alternatif = $saw->get_data_alternatif();
+                                        }
                                         while ($data_alternatif = $alternatif->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <tr>
@@ -106,7 +119,8 @@
                                                 <a href="editalternatif.php?id=<?=$data_alternatif['id_alternatif']?>">
                                                     <button type="button" class="btn btn-primary btn-sm">Edit</button>
                                                 </a>
-                                                <a onclick="return confirm('Data akan dihapus!')" href="alternatif.php?hapus_alternatif=<?=$data_alternatif['id_alternatif']?>">
+                                                <a onclick="return confirm('Data akan dihapus!')"
+                                                    href="alternatif.php?hapus_alternatif=<?=$data_alternatif['id_alternatif']?>">
                                                     <button type="button" class="btn btn-danger btn-sm">Hapus</button>
                                                 </a>
                                             </td>

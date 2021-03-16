@@ -68,12 +68,21 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    <?php 
+                        $kategori = $saw->get_data_kategori();
+                        while ($data_kategori = $kategori->fetch(PDO::FETCH_ASSOC)){
+                    ?>
+                    <a href="penilaian.php?kat=<?=$data_kategori['id_kategori']?>">
+                        <button class="btn btn-danger btn-sm"><?=$data_kategori['nama_kategori']?></button>
+                    </a>
+                    <?php } ?>
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <h4 class="card-title ">Data Penilaian</h4>
-                                    <p class="card-category"> Ini adalah data penilaian alternatif beserta masing-masing kriterianya</p>
+                                    <p class="card-category"> Ini adalah data penilaian alternatif beserta masing-masing
+                                        kriterianya</p>
                                 </div>
                                 <div class="col-lg-6">
                                     <a href="addpenilaian.php"><button
@@ -100,7 +109,12 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $alternatif = $saw->get_data_alternatif();
+                                        if(isset($_GET['kat'])){
+                                            $alternatif = $saw->alternatif_by_idkat($_GET['kat']);
+                                        }
+                                        else{
+                                            $alternatif = $saw->get_data_alternatif();
+                                        }
                                         while ($data_alternatif = $alternatif->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <tr>
@@ -116,7 +130,8 @@
 
                                             <?php } ?>
                                             <td>
-                                                <a onclick="return confirm('Data akan dihapus!')" href="penilaian.php?hapus_penilaian=<?=$data_alternatif['id_alternatif']?>">
+                                                <a onclick="return confirm('Data akan dihapus!')"
+                                                    href="penilaian.php?hapus_penilaian=<?=$data_alternatif['id_alternatif']?>">
                                                     <button type="button" class="btn btn-danger btn-sm">Hapus</button>
                                                 </a>
                                             </td>
