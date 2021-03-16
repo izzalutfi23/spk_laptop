@@ -1,13 +1,13 @@
 <?php 
-    $active = 'penilaian';
+    $active = 'kategori';
     include('header.php');
-    if(isset($_GET['hapus_penilaian']))
+    if(isset($_GET['hapus_kategori']))
     {
-        $kd_penilaian = $_GET['hapus_penilaian'];
-        $del = $saw->del_nilai($kd_penilaian);
+        $kd_kategori = $_GET['hapus_kategori'];
+        $del = $saw->del_kat($kd_kategori);
         if($del)
         {
-            header('Location: penilaian.php');
+            header('Location: kategori.php');
         }
     }
 ?>
@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="javascript:;">Penilaian</a>
+                <a class="navbar-brand" href="javascript:;">Kategori</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -72,11 +72,11 @@
                         <div class="card-header card-header-primary">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h4 class="card-title ">Data Penilaian</h4>
-                                    <p class="card-category"> Ini adalah data penilaian alternatif beserta masing-masing kriterianya</p>
+                                    <h4 class="card-title ">Data Kategori</h4>
+                                    <p class="card-category"> Ini adalah data kategori laptop</p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <a href="addpenilaian.php"><button
+                                    <a href="addkategori.php"><button
                                             class="btn btn-danger btn-sm float-right">Tambah</button></a>
                                 </div>
                             </div>
@@ -85,38 +85,25 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th rowspan="2" style="text-align: center;">Alternatif</th>
-                                        <th colspan="<?php echo $jml_kriteria+1; ?>" style="text-align: center;">
-                                            Kriteria</th>
-                                        <tr>
-                                            <?php
-                                    $kriteria = $saw->get_data_kriteria();
-                                    while ($data_kriteria = $kriteria->fetch(PDO::FETCH_ASSOC)) {
-                                    ?>
-                                            <th style="text-align: center;">
-                                                C<?php echo $data_kriteria['id_kriteria']; ?></th>
-                                            <?php } ?>
-                                            <th width="20%">Aksi</th>
+                                        <th>
+                                            No
+                                        </th>
+                                        <th style="text-align: center;">
+                                            Nama Kategori
+                                        </th>
+                                        <th width="20%">Aksi</th>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $alternatif = $saw->get_data_alternatif();
-                                        while ($data_alternatif = $alternatif->fetch(PDO::FETCH_ASSOC)) {
+                                        $no=1;
+                                        $kategori = $saw->get_data_kategori();
+                                        while ($data_kategori = $kategori->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <tr>
+                                            <td><?=$no++?></td>
+                                            <td align="center"><?php echo $data_kategori['nama_kategori']; ?></td>
                                             <td>
-                                                <center>K<?php echo $data_alternatif['id_alternatif']; ?></center>
-                                            </td>
-                                            <?php
-                                            $nilai = $saw->get_data_nilai_id($data_alternatif['id_alternatif']);
-                                            while ($data_nilai = $nilai->fetch(PDO::FETCH_ASSOC)) { ?>
-                                            <td>
-                                                <center><?php echo $data_nilai['nilai']; ?></center>
-                                            </td>
-
-                                            <?php } ?>
-                                            <td>
-                                                <a onclick="return confirm('Data akan dihapus!')" href="penilaian.php?hapus_penilaian=<?=$data_alternatif['id_alternatif']?>">
+                                                <a onclick="return confirm('Data akan dihapus!')" href="kategori.php?hapus_kategori=<?=$data_kategori['id_kategori']?>">
                                                     <button type="button" class="btn btn-danger btn-sm">Hapus</button>
                                                 </a>
                                             </td>

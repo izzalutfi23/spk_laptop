@@ -1,4 +1,5 @@
-<?php 
+<?php
+    $active = 'kriteria';
     include('header.php');
     if(isset($_GET['id'])){
         $id = $_GET['id']; 

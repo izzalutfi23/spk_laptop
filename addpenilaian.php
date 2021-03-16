@@ -1,4 +1,5 @@
-<?php 
+<?php
+    $active = 'penilaian';
     include('header.php');
     if(!empty($_POST["add_record"])) {
         require_once("db.php");

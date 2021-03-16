@@ -64,6 +64,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>Kriteria</p>
                         </a>
                     </li>
+                    <li class="nav-item <?=($active=='kategori'?'active':'')?>">
+                        <a class="nav-link" href="kategori.php">
+                            <i class="material-icons">dashboard</i>
+                            <p>Kategori</p>
+                        </a>
+                    </li>
                     <li class="nav-item <?=($active=='alternatif'?'active':'')?>">
                         <a class="nav-link" href="alternatif.php">
                             <i class="material-icons">subject</i>

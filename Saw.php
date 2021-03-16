@@ -11,6 +11,22 @@ class Saw
     $this->db = new PDO('mysql:host=localhost;dbname=spk_laptop', "root", "");
   }
 
+  // Kategori
+  public function get_data_kategori(){
+    $stmt = $this->db->prepare("SELECT*FROM kategori_saw");
+    $stmt->execute();
+    return $stmt;
+  }
+
+  public function del_kat($id_kategori)
+  {
+      $query = $this->db->prepare("DELETE FROM kategori_saw where id_kategori=?");
+      $query->bindParam(1, $id_kategori);
+      $query->execute();
+      return $query->rowCount();
+  }
+  // End kategori
+
   public function get_data_kriteria(){
     $stmt = $this->db->prepare("SELECT*FROM kriteria_saw ORDER BY id_kriteria");
     $stmt->execute();

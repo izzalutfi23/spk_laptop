@@ -1,14 +1,14 @@
 <?php
-    $active = 'kriteria';
+    $active = 'kategori';
     include('header.php');
     if(!empty($_POST["add_record"])) {
         require_once("db.php");
-        $sql = "INSERT INTO kriteria_saw ( nama_kriteria, jenis, bobot ) VALUES ( :nama_kriteria, :jenis, :bobot )";
+        $sql = "INSERT INTO kategori_saw ( nama_kategori) VALUES ( :nama_kategori )";
         $pdo_statement = $pdo_conn->prepare( $sql );
             
-        $result = $pdo_statement->execute( array( ':nama_kriteria'=>$_POST['nama_kriteria'], ':jenis'=>$_POST['jenis'], ':bobot'=>$_POST['bobot'] ) );
+        $result = $pdo_statement->execute( array( ':nama_kategori'=>$_POST['nama_kategori']) );
         if (!empty($result) ){
-        header('location:kriteria.php');
+        header('location:kategori.php');
     }
 }
 ?>
@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="javascript:;">Tambah Data Kriteria</a>
+                <a class="navbar-brand" href="javascript:;">Tambah Data Kategori</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -71,30 +71,16 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title">Kriteria</h4>
+                            <h4 class="card-title">Kategori</h4>
                             <p class="card-category">Silahkan isi form di bawah ini!</p>
                         </div>
                         <div class="card-body">
                             <form action="" method="POST">
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Nama Kriteria</label>
-                                            <input type="text" name="nama_kriteria" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Jenis</label>
-                                            <input type="text" name="jenis" value="benefit" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
+                                <div class="row mb-3 mt-3">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Bobot</label>
-                                            <input type="text" name="bobot" class="form-control">
+                                            <label class="bmd-label-floating">Nama Kategori</label>
+                                            <input type="text" name="nama_kategori" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -107,9 +93,9 @@
                 <div class="col-md-4">
                     <div class="card card-profile">
                         <div class="card-body">
-                            <h4 class="card-title">KRITERIA</h4>
+                            <h4 class="card-title">Kategori</h4>
                             <p class="card-description">
-                                penilaian dapat ditentukan sendiri sesuai dengan kebutuhan, contoh: warna, operating system, RAM, dll
+                                penambahan kategori alternatif agar mempermudah pengelompokan data alternatif
                             </p>
                         </div>
                     </div>
@@ -117,6 +103,6 @@
             </div>
         </div>
     </div>
-<?php 
+    <?php 
   include('footer.php');
 ?>
