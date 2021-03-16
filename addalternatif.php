@@ -3,10 +3,10 @@
     include('header.php');
     if(!empty($_POST["add_record"])) {
         require_once("db.php");
-        $sql = "INSERT INTO alternatif_saw ( nama_alternatif) VALUES ( :nama_alternatif )";
+        $sql = "INSERT INTO alternatif_saw ( id_kategori, nama_alternatif) VALUES ( :id_kategori, :nama_alternatif )";
         $pdo_statement = $pdo_conn->prepare( $sql );
             
-        $result = $pdo_statement->execute( array( ':nama_alternatif'=>$_POST['nama_alternatif']) );
+        $result = $pdo_statement->execute( array( ':id_kategori'=>$_POST['id_kategori'], ':nama_alternatif'=>$_POST['nama_alternatif']) );
         if (!empty($result) ){
         header('location:alternatif.php');
     }
@@ -77,6 +77,19 @@
                         <div class="card-body">
                             <form action="" method="POST">
                                 <div class="row mb-3 mt-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Kategori</label>
+                                            <select name="id_kategori" class="form-control">
+                                                <?php 
+                                                    $kategori = $saw->get_data_kategori();
+                                                    while ($data_kategori = $kategori->fetch(PDO::FETCH_ASSOC)){
+                                                ?>
+                                                <option value="<?=$data_kategori['id_kategori']?>"><?=$data_kategori['nama_kategori']?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">Nama Alternatif</label>
