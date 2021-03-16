@@ -73,7 +73,7 @@
                         while ($data_kategori = $kategori->fetch(PDO::FETCH_ASSOC)){
                     ?>
                     <a href="penilaian.php?kat=<?=$data_kategori['id_kategori']?>">
-                        <button class="btn btn-danger btn-sm"><?=$data_kategori['nama_kategori']?></button>
+                        <button class="btn btn-default btn-sm"><?=$data_kategori['nama_kategori']?></button>
                     </a>
                     <?php } ?>
                     <div class="card">

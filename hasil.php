@@ -59,6 +59,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    <?php 
+                        $kategori = $saw->get_data_kategori();
+                        while ($data_kategori = $kategori->fetch(PDO::FETCH_ASSOC)){
+                    ?>
+                    <a href="hasil.php?kat=<?=$data_kategori['id_kategori']?>">
+                        <button class="btn btn-default btn-sm"><?=$data_kategori['nama_kategori']?></button>
+                    </a>
+                    <?php } ?>
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title ">Normalisasi</h4>
@@ -82,7 +90,12 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $alternatif = $saw->get_data_alternatif();
+                                        if(isset($_GET['kat'])){
+                                            $alternatif = $saw->alternatif_by_idkat($_GET['kat']);
+                                        }
+                                        else{
+                                            $alternatif = $saw->get_data_alternatif();
+                                        }
                                         while ($data_alternatif = $alternatif->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <tr>
@@ -168,7 +181,12 @@
                                     <tbody>
                                         <?php
                                             $hasil_ranks=array();
-                                            $alternatif = $saw->get_data_alternatif();
+                                            if(isset($_GET['kat'])){
+                                                $alternatif = $saw->alternatif_by_idkat($_GET['kat']);
+                                            }
+                                            else{
+                                                $alternatif = $saw->get_data_alternatif();
+                                            }
                                             while ($data_alternatif = $alternatif->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <tr>
@@ -246,16 +264,22 @@
                                     <th style="text-align: center;">Nilai Akhir</th>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
                                     $no=1;
                                     rsort($hasil_ranks);
                                     foreach ($hasil_ranks as $rank) { ?>
                                     <tr>
-                                        <td><center><?php echo $no++ ?></center></td>
-                                        <td><center><?php echo $rank['alternatif']; ?></center></td>
-                                        <td><center><?php echo $rank['nilai']; ?></center></td>
+                                        <td>
+                                            <center><?php echo $no++ ?></center>
+                                        </td>
+                                        <td>
+                                            <center><?php echo $rank['alternatif']; ?></center>
+                                        </td>
+                                        <td>
+                                            <center><?php echo $rank['nilai']; ?></center>
+                                        </td>
                                     </tr>
-                                <?php } ?>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
